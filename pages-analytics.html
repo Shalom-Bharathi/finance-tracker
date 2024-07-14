@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="AdminKit">
+	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+
+	<link rel="canonical" href="https://demo-basic.adminkit.io/pages-blank.html" />
+	<style>
+		button {
+			transition: 0.5s !important;
+		}
+	</style>
+	<title>Analytics | PFT</title>
+
+	<link href="css/app.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+
+	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
+
+	<title>TEST</title>
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+	<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-firestore.js"></script>
+	<!-- Include Chart.js from CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+	<!-- TODO: Add SDKs for Firebase products that you want to use
+	   https://firebase.google.com/docs/web/setup#available-libraries -->
+  
+	<script>
+	  var firebaseConfig = {
+		apiKey: "AIzaSyAXO92dPi-d0SdhX5GOSpSWGgj2G34Epsw",
+	authDomain: "tracker-61e18.firebaseapp.com",
+	projectId: "tracker-61e18",
+	storageBucket: "tracker-61e18.appspot.com",
+	messagingSenderId: "1021884031951",
+	appId: "1:1021884031951:web:55f29a1cbbf37fea9368ba"
+	  };
+	  firebase.initializeApp(firebaseConfig);
+	</script>
+	<script src="js/app2.js" defer></script>
+</head>
+
+<body>
+	<div class="wrapper">
+		<nav id="sidebar" class="sidebar js-sidebar">
+			<div class="sidebar-content js-simplebar">
+				<a class="sidebar-brand" href="index.html">
+          <span class="align-middle">Finance tracker</span>
+        </a>
+
+				<ul class="sidebar-nav">
+					<li class="sidebar-header">
+						Pages
+					</li>
+
+					<li class="sidebar-item ">
+						<a class="sidebar-link" href="index.html">
+              <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+            </a>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="pages-profile.html">
+              <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+            </a>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="pages-data.html">
+              <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Data</span>
+            </a>
+					</li>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="pages-help.html">
+              <i class="align-middle" data-feather="help-circle"></i> <span class="align-middle">Help</span>
+            </a>
+					</li>
+
+					<li class="sidebar-item active">
+						<a class="sidebar-link" href="pages-analytics.html">
+              <i class="align-middle" data-feather="pie-chart"></i> <span class="align-middle">Analytics</span>
+            </a>
+		</li>
+		</div>
+		</nav>
+
+		<div class="main">
+			<nav class="navbar navbar-expand navbar-light navbar-bg">
+				<a class="sidebar-toggle js-sidebar-toggle">
+          <i class="hamburger align-self-center"></i>
+        </a>
+
+				<div class="navbar-collapse collapse">
+					<ul class="navbar-nav navbar-align">
+					
+						
+						<li class="nav-item dropdown">
+							
+
+							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                <img src="" class="avatar img-fluid rounded me-1" id="Userphoto" /> <span class="text-dark" id="userDetails"></span> 
+				<!-- NOTE line 84 pic and name -->
+              	</a>
+							<div class="dropdown-menu dropdown-menu-end">
+								
+								<a href="index.html"><button class="dropdown-item">Log out</button></a>
+								
+							</div>
+						</li>
+					</ul>
+				</div>
+			</nav>
+
+			<main class="content">
+				<div class="container-fluid p-0">
+
+					<h1 class="h3 mb-3"><strong>Analytics</strong></h1>
+
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-header">
+									<h3>Total Amount Spent</h3>
+  <input type="radio" id="LifeTime-Spent" name="sumOfMoneySpent" value="LifeTime">
+  <label for="LifeTime-Spent" >Life Time</label> <br>
+
+  <input type="radio" id="PastYear-Spent" name="sumOfMoneySpent" value="PastYear">
+  <label for="PastYear-Spent">Past Year</label> <br>
+
+  <input type="radio" id="Past6Month-Spent" name="sumOfMoneySpent" value="Past6Month">
+  <label for="Past6Month-Spent">Past 6 Months</label> <br>
+
+  <input type="radio" id="PastMonth-Spent" name="sumOfMoneySpent" value="PastMonth">
+  <label for="PastMonth-Spent">Past Month</label> <br>
+  <br>
+  <hr>
+  <br><center>
+  <h2 id="SumOfText">Total Money Spent is ?</h2>
+  </center>
+  <br>
+  <div
+  <div style="display: inline-block; width: 47%; border-right: 1px solid grey;">
+	<center>
+	<h3>Category</h3>
+  
+  <table class="table" style="width: 80%;">
+  <thead class="thead-dark">
+	<tr>
+	<th>Money spent based on Category ($)</th></tr>
+  </thead>
+  <tbody id="categoriesListDollars"></tbody>
+</table>
+  <br>
+  <table class="table" style="width: 80%;">
+  <thead class="thead-dark">
+	<tr>
+	<th>Money spent based on Category (%)</th></tr>
+  </thead>
+  <tbody id="categoriesListPersentage"></tbody>
+</table>
+  <br>
+  <canvas id="categoriesListPersentageChart" width="300px" height="300px"></canvas>
+</center>
+</div>
+							
+<div style="display: inline-block; width: 45%; float: right; margin-right: 50px;">
+<center>
+<h3>MoP</h3>
+<table class="table" style="width: 80%;">
+<thead class="thead-dark">
+	<tr>
+	<th>Money spent based on MoP ($)</th></tr>
+  </thead>
+  <tbody id="MoPListDollars"></tbody>
+</table>
+  <br>
+ 
+  <table class="table" style="width: 80%;">
+	<thead class="thead-dark">
+		<tr>
+		<th>Money spent based on MoP (%)</th></tr>
+	  </thead>
+	  <tbody id="MoPListPersentage"></tbody>
+	</table>
+  <canvas id="MoPListPersentageChart" width="300px" height="300px"></canvas></center>
+		</div>
+		<br>
+		<hr>
+		<br>
+		<Center><h2><strong> Money Spendings Graphs </strong> On Category and MoP</h2></Center>
+		<br>
+		<div>
+			<center>
+			<h3>Category</h3>
+		  <canvas id="categoriesListDollarBar" width="100px" height="50px"></canvas>
+		</center>
+		</div>
+									
+		<div >
+		<center>
+		<h3>MoP</h3>
+		<canvas id="MoPListDollarBar" width="100px" height="50px"></canvas></center>
+
+		</div>
+		<br>
+		<hr>
+		<canvas id="monthlySpendingGraph"width="300px" height="300px"></canvas>
+	</div>	
+			</div>
+					<div class="card-body">
+								</div>
+							</div>
+						</div>
+					</div>
+			
+					</div>
+				</div>
+				</div>
+			</main>
+
+			
+		</div>
+	</div>
+
+	<script src="js/app.js"></script>
+
+</body>
+
+</html>

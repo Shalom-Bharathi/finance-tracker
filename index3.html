@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firebase Basics</title>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first
+  <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-firestore.js"></script>
+  <!-- Include Chart.js from CDN -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+  <!-- <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyAXO92dPi-d0SdhX5GOSpSWGgj2G34Epsw",
+  authDomain: "tracker-61e18.firebaseapp.com",
+  projectId: "tracker-61e18",
+  storageBucket: "tracker-61e18.appspot.com",
+  messagingSenderId: "1021884031951",
+  appId: "1:1021884031951:web:55f29a1cbbf37fea9368ba"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script> -->
+
+  <!-- <script src="app.js" defer></script> -->
+
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"
+    integrity="sha512-/seDHxVfh1NvFUscAj8GsHQVZJvr2jjAoYsNL7As2FCaFHUHYIarl3sRCvVlFgyouVNiRgHIebyLKjpgd1SLDw=="
+    crossorigin="anonymous"></script> --> -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li>
+        <a href="#" class="logo">
+        <img src="img/logo.png" alt="LOGO">
+        <span class="nav-item">Code info</span>
+      </a>  
+      </li>
+      <li><a href="#">
+        <i class="fas fa-home"></i>
+        <span class="nav-item">Home</span>
+      </a></li>
+      <li><a href="#">
+        <i class="fas fa-user"></i>
+        <span class="nav-item">Profile</span>
+      </a></li>
+      <li><a href="#">
+        <i class="fas fa-wallet"></i>
+        <span class="nav-item">Spendings</span>
+      </a></li>
+      <li><a href="#">
+        <i class="fas fa-chart-bar"></i>
+        <span class="nav-item">Analytics</span>
+      </a></li>
+      <li><a href="#" class="signoutnav">
+        <i class="fas fa-sign-out-alt"></i>
+        <span class="nav-item"></span>
+      </a></li>
+    </ul>
+  </nav>
+  <section class="body-page"> 
+  <h1>My App</h1>
+
+  <section id="whenSignedOut">
+
+    <button id="signInBtn" class="btn btn-primary">Sign in with Google</button>
+
+  </section>
+
+  <section id="whenSignedIn" hidden="true">
+
+    <div id="userDetails"></div>
+    <img id="Userphoto" src="" alt="s">
+    <button id="signOutBtn" class="btn btn-primary">Sign Out</button>
+
+  
+
+  <hr>
+
+  
+
+    <h2>My Firestore Things</h2>
+
+    <ul id="thingsList">
+
+    </ul>
+
+    
+    <br>
+    <label for="Amount">Amount spent:</label>
+    <input type="number" class="inp" id="Amount"><br>
+
+    <label for="Category">Category: </label>
+    <select id="Category">
+      <option value="">Select a category</option>
+    </select>
+    <br>
+    <label for="MoPDropdown">Mode of Payment:</label>
+    <select id="MoPDropdown">
+      <option value="">Select a MoP</option>
+    </select>
+    <br>
+    <button id="submit-btn" class="btn btn-success">Submit</button>
+    <br>
+    
+    <section id="AddCustomSectionCAT" hidden = "true">
+    <hr>
+    <h2>Category database Push / Pull </h2>
+    
+    
+    <br>
+    <input type="text" id="add-category">
+    <br>
+    <br>
+    <button id="submit-btn-Category" class="btn btn-success">Modify Category</button>
+  </section>
+    <section id="AddCustomSectionMoP" hidden = "true">
+    <br>
+    <hr>
+    <h2>MoP database Push / Pull </h2>
+    <br>    
+    <br>
+    <br>
+    <input type="text" id="add-MoP">
+    <br>
+    <br>
+    <button id="submit-btn-MoP" class="btn btn-success">Modify Category</button>
+  </section>
+  <br>
+  <hr>
+  
+  <br>
+  
+
+  <button id = "EditDataBtn" class="btn btn-info">Data Edittor</button>
+  </section>
+
+  <section id="DataEditorSection" hidden='true'>
+    <center>
+    <h3>Welcome to the Data Edittor</h3>
+    <h4>Spendings</h4>
+  </center>
+    <table id="DataEditTable" class="table">
+      <thead class="thead-dark">
+        <th>S.num</th>
+        <th>Amount</th>
+        <th>Category</th>
+        <th>ModeOfPayment</th>
+        <th>Date</th>
+        <th>Delete Data</th>
+      </thead>
+      <tbody id="tbodyEdittor"></tbody>
+    </table>
+    
+    <button id = "EditDataBtnOut" class="btn btn-info">Exit Data Edittor</button>
+  </section>
+  
+</section>
+
+</body>
+
+</html>
