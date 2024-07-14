@@ -375,7 +375,7 @@ auth.onAuthStateChanged(user => {
                 document.getElementById('MostusedMoPLabel').textContent = highestMoP;
                 console.log(`testing :${highestMoP}`)
 
-                document.getElementById('totalAmountSpentLabel').textContent = `$${totalAmount_2}`;
+                document.getElementById('totalAmountSpentLabel').textContent = `₹${totalAmount_2}`;
 
                 
 
@@ -516,7 +516,7 @@ auth.onAuthStateChanged(user => {
                 console.log(categoryTotalPersent)
                 console.log(categoryTotalDollars)
                 
-                SumOfLabel.textContent = `Total Money Spent ${stateOfTime} is $${totalAmount}!`;
+                SumOfLabel.textContent = `Total Money Spent ${stateOfTime} is ₹${totalAmount}!`;
                 console.log("sucessfully summed money");
 
                 
@@ -570,7 +570,7 @@ auth.onAuthStateChanged(user => {
                     const _Date = newRow.insertCell(4);
                     const _Delete = newRow.insertCell(5);
                     _Sno.innerHTML = `${numb}`;
-                    _Amount.innerHTML = `$${data.Amount}`;
+                    _Amount.innerHTML = `₹${data.Amount}`;
                     _Category.innerHTML = `${data.Category}`;
                     _MoP.innerHTML = `${data.MoP}`;
                     _Date.innerHTML = `${convertTimestampToDate(data.Date)}`;
@@ -671,7 +671,7 @@ auth.onAuthStateChanged(user => {
                 highestSpent = doc.data().Amount
             }    
         }); 
-        document.getElementById('biggestPurchaseLabel').textContent = `$${highestSpent}`
+        document.getElementById('biggestPurchaseLabel').textContent = `₹${highestSpent}`
     });
     
 
