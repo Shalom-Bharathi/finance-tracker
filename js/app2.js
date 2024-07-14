@@ -13,19 +13,6 @@ const Userphoto = document.getElementById("Userphoto");
 
 const provider = new firebase.auth.GoogleAuthProvider();
 
-const purchasesData = [
-    { Amount: 50, Category: 'Groceries', MoP: 'Credit Card', Date: firebase.firestore.Timestamp.fromDate(new Date('2023-01-15')) },
-    { Amount: 30, Category: 'Entertainment', MoP: 'Cash', Date: firebase.firestore.Timestamp.fromDate(new Date('2023-02-10')) },
-    { Amount: 80, Category: 'Utilities', MoP: 'Debit Card', Date: firebase.firestore.Timestamp.fromDate(new Date('2023-02-25')) },
-    { Amount: 60, Category: 'Groceries', MoP: 'Credit Card', Date: firebase.firestore.Timestamp.fromDate(new Date('2023-03-05')) },
-    { Amount: 40, Category: 'Entertainment', MoP: 'Cash', Date: firebase.firestore.Timestamp.fromDate(new Date('2023-04-20')) },
-    { Amount: 70, Category: 'Utilities', MoP: 'Debit Card', Date: firebase.firestore.Timestamp.fromDate(new Date('2023-05-10')) },
-    { Amount: 55, Category: 'Groceries', MoP: 'Credit Card', Date: firebase.firestore.Timestamp.fromDate(new Date('2023-06-15')) },
-    { Amount: 25, Category: 'Entertainment', MoP: 'Cash', Date: firebase.firestore.Timestamp.fromDate(new Date('2023-07-20')) },
-    { Amount: 90, Category: 'Utilities', MoP: 'Debit Card', Date: firebase.firestore.Timestamp.fromDate(new Date('2023-08-05')) },
-  ];
-
-
 const presetMoP = [
     "Credit Cards",
     "Debit Cards",
