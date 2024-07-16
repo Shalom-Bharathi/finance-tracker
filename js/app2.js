@@ -286,7 +286,7 @@ auth.onAuthStateChanged(user => {
 // pie charts MOP Dashboard
 let thingsRef6;
 let unsubscribe6;
-try {
+
 auth.onAuthStateChanged(user => {
 
     if (user) {
@@ -341,7 +341,7 @@ auth.onAuthStateChanged(user => {
                 }
                 let highest = 0;
                 let highestCat = "";
-                for (i in categoryTotalPersent_2) {
+                for (let i in categoryTotalPersent_2) {
                    if (categoryTotalPersent_2[i] > highest) {
                     highest = categoryTotalPersent_2[i];
                     highestCat = i
@@ -352,7 +352,7 @@ auth.onAuthStateChanged(user => {
 
                 let highest2 = 0;
                 let highestMoP = "";
-                for (i in MoPTotalPersent_2) {
+                for (let i in MoPTotalPersent_2) {
                    if (MoPTotalPersent_2[i] > highest2) {
                     highest2 = MoPTotalPersent_2[i];
                     highestMoP = i;
@@ -373,14 +373,15 @@ auth.onAuthStateChanged(user => {
                 
                 });
 
-            };
-        }
-    )}
+            }
 
+         else {
+        
+            unsubscribe6 && unsubscribe();
     
-    catch {
-            console.log("error in making MoP chart in Dashboard")
-}
+        }
+    });
+
 // Total Money Spent and charts
 auth.onAuthStateChanged(user => {
 
