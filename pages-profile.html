@@ -6,7 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="A personal Finance Tracker By Shalom Bharathi">
-	
+
 	<style>
 		button {
 			transition: 0.5s !important;
@@ -31,24 +31,24 @@
 	<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-firestore.js"></script>
 	<!-- Include Chart.js from CDN -->
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
+
 	<!-- TODO: Add SDKs for Firebase products that you want to use
 	   https://firebase.google.com/docs/web/setup#available-libraries -->
-  
+
 	<script>
-	  var firebaseConfig = {
-		apiKey: "AIzaSyAXO92dPi-d0SdhX5GOSpSWGgj2G34Epsw",
-	authDomain: "tracker-61e18.firebaseapp.com",
-	projectId: "tracker-61e18",
-	storageBucket: "tracker-61e18.appspot.com",
-	messagingSenderId: "1021884031951",
-	appId: "1:1021884031951:web:55f29a1cbbf37fea9368ba"
-	  };
-	  firebase.initializeApp(firebaseConfig);
+		var firebaseConfig = {
+			apiKey: "AIzaSyAXO92dPi-d0SdhX5GOSpSWGgj2G34Epsw",
+			authDomain: "tracker-61e18.firebaseapp.com",
+			projectId: "tracker-61e18",
+			storageBucket: "tracker-61e18.appspot.com",
+			messagingSenderId: "1021884031951",
+			appId: "1:1021884031951:web:55f29a1cbbf37fea9368ba"
+		};
+		firebase.initializeApp(firebaseConfig);
 	</script>
 	<script src="js/app2.js" defer></script>
-  
-	
+
+
 	<link href="css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
@@ -58,8 +58,8 @@
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
 				<a class="sidebar-brand" href="index.html">
-          <span class="align-middle">Finance tracker</span>
-        </a>
+					<span class="align-middle">Finance tracker</span>
+				</a>
 
 				<ul class="sidebar-nav">
 					<li class="sidebar-header">
@@ -68,55 +68,60 @@
 
 					<li class="sidebar-item ">
 						<a class="sidebar-link" href="index.html">
-              <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-            </a>
+							<i class="align-middle" data-feather="sliders"></i> <span
+								class="align-middle">Dashboard</span>
+						</a>
 					</li>
 
 					<li class="sidebar-item active">
 						<a class="sidebar-link" href="pages-profile.html">
-              <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
-            </a>
+							<i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+						</a>
 					</li>
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="pages-data.html">
-              <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Data</span>
-            </a>
+							<i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Data</span>
+						</a>
 					</li>
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="pages-help.html">
-              <i class="align-middle" data-feather="help-circle"></i> <span class="align-middle">Help</span>
-            </a>
+							<i class="align-middle" data-feather="help-circle"></i> <span
+								class="align-middle">Help</span>
+						</a>
 					</li>
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="pages-analytics.html">
-              <i class="align-middle" data-feather="pie-chart"></i> <span class="align-middle">Analytics</span>
-            </a>
-		</li>
-		</div>
+							<i class="align-middle" data-feather="pie-chart"></i> <span
+								class="align-middle">Analytics</span>
+						</a>
+					</li>
+			</div>
 		</nav>
-		
+
 		<div class="main">
 			<nav class="navbar navbar-expand navbar-light navbar-bg">
 				<a class="sidebar-toggle js-sidebar-toggle">
-          <i class="hamburger align-self-center"></i>
-        </a>
+					<i class="hamburger align-self-center"></i>
+				</a>
 
 				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav navbar-align">
-						
-						
-						<li class="nav-item dropdown">
-							
 
-							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                <img src="" class="avatar img-fluid rounded me-1" id="Userphoto" /> <span class="text-dark" id="userDetails"></span> 
-				<!-- NOTE 84 pic and name -->
-              	</a>
+
+						<li class="nav-item dropdown">
+
+
+							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
+								data-bs-toggle="dropdown">
+								<img src="" class="avatar img-fluid rounded me-1" id="Userphoto" /> <span
+									class="text-dark" id="userDetails"></span>
+								<!-- NOTE 84 pic and name -->
+							</a>
 							<div class="dropdown-menu dropdown-menu-end">
-								
+
 								<a href="index.html"><button class="dropdown-item" id="logOutBtn">Log out </button></a>
 							</div>
 						</li>
@@ -137,17 +142,23 @@
 									<h5 class="card-title mb-0">Profile Details</h5>
 								</div>
 								<div class="card-body text-center">
-									<img src=""  id="Userphoto2" class="img-fluid rounded-square mb-2" width="128" height="128" style="border-radius: 20px;"/>
+									<img src="" id="Userphoto2" class="img-fluid rounded-square mb-2" width="128"
+										height="128" style="border-radius: 20px;" />
 									<br>
 									<br>
 									<!-- NOTE: Change src in above line to user pic -->
-									<h5  id="userDetails2"></h5>
+									<h5 id="userDetails2"></h5>
 									<!-- NOTE: Change VAR in above line to name -->
-									
+									<!-- <div class="form-group">
+										<label for="exampleFormControlSelect1">Currency </label>
+										<select class="form-control" id="CurrencyListItem">
+										</select>
+										<button type="button" class="btn btn-outline-primary">Select currency</button>
+									</div> -->
 									<!-- NOTE: Change VAR in above line to user id -->
 
 									<div>
-										
+
 									</div>
 								</div>
 								<hr class="my-0" />
@@ -158,7 +169,7 @@
 				</div>
 			</main>
 
-			
+
 		</div>
 	</div>
 

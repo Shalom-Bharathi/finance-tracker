@@ -29,7 +29,6 @@ const presetMoP = [
     "Wire Transfers",
     "Digital Currencies",
     "Others",
-    "Add Custom",
 ];
 
 const presetCategories = [
@@ -54,11 +53,43 @@ const presetCategories = [
     "Pets",
     "Childcare",
     "Others",
-    "Add Custom",
 ];
 
+// const CurrencySymbols = [
+//     "$",    // United States Dollar, Argentine Peso, Chilean Peso, Colombian Peso
+//     "C$",   // Canadian Dollar
+//     "€",    // Euro
+//     "¥",    // Japanese Yen, Chinese Yuan
+//     "£",    // British Pound, Egyptian Pound
+//     "A$",   // Australian Dollar
+//     "CHF",  // Swiss Franc
+//     "kr",   // Swedish Krona, Norwegian Krone
+//     "NZ$",  // New Zealand Dollar
+//     "Mex$", // Mexican Peso
+//     "S$",   // Singapore Dollar
+//     "HK$",  // Hong Kong Dollar
+//     "₩",    // South Korean Won
+//     "₺",    // Turkish Lira
+//     "₽",    // Russian Ruble
+//     "₹",    // Indian Rupee
+//     "R$",   // Brazilian Real
+//     "R",    // South African Rand
+//     "ر.س",  // Saudi Riyal
+//     "د.إ",  // United Arab Emirates Dirham
+//     "Rp",   // Indonesian Rupiah
+//     "₪",    // Israeli New Shekel
+//     "RM",   // Malaysian Ringgit
+//     "₦",    // Nigerian Naira
+//     "₨",    // Pakistani Rupee
+//     "₱",    // Philippine Peso
+//     "zł",   // Polish Zloty
+//     "฿",    // Thai Baht
+//     "₫"     // Vietnamese Dong
+// ];
+
+
 try {
-const dropdown1 = document.getElementById('Category');
+    const dropdown1 = document.getElementById('Category');
     presetCategories.forEach(Cat => {
         const option = document.createElement('option');
         option.value = Cat;
@@ -74,7 +105,7 @@ catch {
 
 
 try {
-const dropdown2 = document.getElementById('MoPDropdown');
+    const dropdown2 = document.getElementById('MoPDropdown');
     presetMoP.forEach(MoP => {
         const option = document.createElement('option');
         option.value = MoP;
@@ -87,45 +118,44 @@ catch {
     console.log("MoP Adding Failed")
 }
 try {
-signInBtn.onclick = () => auth.signInWithPopup(provider);
+    signInBtn.onclick = () => auth.signInWithPopup(provider);
 
-signOutBtn.onclick = () => auth.signOut();
+    signOutBtn.onclick = () => auth.signOut();
 }
 catch {
     console.log("logging in provider failed")
 }
-
 auth.onAuthStateChanged(user => {
     if (user) {
         try {
-        whenSignedIn.hidden = false;
-        whenSignedOut.hidden = true;
+            whenSignedIn.hidden = false;
+            whenSignedOut.hidden = true;
         }
-        catch {console.log("login feature not in this page")}
+        catch { console.log("login feature not in this page") }
         userDetails.textContent = user.displayName;
         const profilePicUrl = user.photoURL;
         Userphoto.src = profilePicUrl;
         try {
-        document.getElementById('userDetails2').textContent = user.displayName;
-        const profilePicUrl2 = user.photoURL;
-        document.getElementById('Userphoto2').src = profilePicUrl2;
-        } catch {console.log("there is no second profile loader in this page")}
+            document.getElementById('userDetails2').textContent = user.displayName;
+            const profilePicUrl2 = user.photoURL;
+            document.getElementById('Userphoto2').src = profilePicUrl2;
+        } catch { console.log("there is no second profile loader in this page") }
     } else {
         try {
-        whenSignedIn.hidden = true;
-        whenSignedOut.hidden = false;
+            whenSignedIn.hidden = true;
+            whenSignedOut.hidden = false;
         }
-        catch {console.log("login feature not in this page")}
+        catch { console.log("login feature not in this page") }
         userDetails.innerHTML = '';
         Userphoto.src = '';
-    } 
+    }
 });
 const CategoryItm = document.getElementById("Category");
 const AmountItm = document.getElementById("Amount");
 const db = firebase.firestore()
 
 const sumbitBtn = document.getElementById("submit-btn");
-const thingsList = document.getElementById("thingsList"); 
+const thingsList = document.getElementById("thingsList");
 
 let thingsRef3;
 let unsubscribe3;
@@ -140,7 +170,7 @@ let thingsRef4;
 let unsubscribe4;
 const SumOfLabel = document.getElementById("SumOfText");
 const DefaultRadio = document.getElementById("LifeTime-Spent");
-const MoneySpent =document.querySelectorAll('input[name="sumOfMoneySpent"]');
+const MoneySpent = document.querySelectorAll('input[name="sumOfMoneySpent"]');
 const categoriesListDollars = document.getElementById("categoriesListDollars");
 const categoriesListPersentage = document.getElementById("categoriesListPersentage");
 const MoPListDollars = document.getElementById("MoPListDollars");
@@ -163,14 +193,16 @@ let unsubscribe2;
 const sumbitBtn2 = document.getElementById("submit-btn-Category")
 const CategoryText = document.getElementById("add-category")
 
+// addCurrency(CurrencySymbols, "CurrencyListItem")
+
 let thingsRef;
 let unsubscribe;
 
 auth.onAuthStateChanged(user => {
-    
+
     if (user) {
 
-        
+
         thingsRef = db.collection('spendings')
 
         sumbitBtn.onclick = () => {
@@ -182,11 +214,12 @@ auth.onAuthStateChanged(user => {
                 MoP: String(dropdownMoP.value),
                 Date: saveDateToFirestore('DatePicker')
             });
-            alert("sucessfully added")
+            alert("sucessfully added");
+
         }
 
     } else {
-        
+
         unsubscribe && unsubscribe();
     }
 });
@@ -199,38 +232,38 @@ auth.onAuthStateChanged(user => {
 
     if (user) {
 
-        
+
         thingsRef2 = db.collection('categories')
 
         sumbitBtn2.onclick = () => {
 
             const { serverTimestamp } = firebase.firestore.FieldValue;
             thingsRef2.add({
-                uid:user.uid,
-                Category:String(CategoryText.value),
+                uid: user.uid,
+                Category: String(CategoryText.value),
                 Date: serverTimestamp()
             });
             console.log("success")
         }
 
         unsubscribe2 = thingsRef2
-        .where('uid', '==', user.uid)
-        
-        .onSnapshot(querySnapshot => {
-        
-        let usersCat = querySnapshot.docs.map(doc => {                
-            return doc.data().Category;
-        }); 
-        console.log(usersCat)
-        addCategories(usersCat);
-        console.log("pulling data sucessful")
-    });
+            .where('uid', '==', user.uid)
 
-    
+            .onSnapshot(querySnapshot => {
+
+                let usersCat = querySnapshot.docs.map(doc => {
+                    return doc.data().Category;
+                });
+                console.log(usersCat)
+                addCategories(usersCat);
+                console.log("pulling data sucessful")
+            });
+
+
 
 
     } else {
-        
+
         unsubscribe2 && unsubscribe();
     }
 });
@@ -244,7 +277,7 @@ auth.onAuthStateChanged(user => {
 auth.onAuthStateChanged(user => {
 
     if (user) {
-        
+
         thingsRef3 = db.collection('MoP')
 
         sumbitBtn3.onclick = () => {
@@ -252,32 +285,32 @@ auth.onAuthStateChanged(user => {
             const { serverTimestamp } = firebase.firestore.FieldValue;
 
             thingsRef3.add({
-                uid:user.uid,
-                MoP:String(MoPText.value),
+                uid: user.uid,
+                MoP: String(MoPText.value),
                 Date: serverTimestamp()
-            
+
             });
             console.log("Test3: Success")
         }
 
         unsubscribe3 = thingsRef3
-        .where('uid', '==', user.uid)
-        
-        .onSnapshot(querySnapshot => {
-        
-        let usersMoP = querySnapshot.docs.map(doc => {                
-            return doc.data().MoP;
+            .where('uid', '==', user.uid)
 
-        }); 
-        console.log(usersMoP);
-        addMoP(usersMoP);
-        console.log("sucess2");
-    });
-    
+            .onSnapshot(querySnapshot => {
+
+                let usersMoP = querySnapshot.docs.map(doc => {
+                    return doc.data().MoP;
+
+                });
+                console.log(usersMoP);
+                addMoP(usersMoP);
+                console.log("sucess2");
+            });
+
 
 
     } else {
-        
+
         unsubscribe3 && unsubscribe();
     }
 });
@@ -295,20 +328,20 @@ auth.onAuthStateChanged(user => {
 
 
 
-                unsubscribe6 = thingsRef6
-                .where('uid', '==', user.uid)
-                
-                .onSnapshot(querySnapshot => {
+        unsubscribe6 = thingsRef6
+            .where('uid', '==', user.uid)
+
+            .onSnapshot(querySnapshot => {
                 let totalAmount_2 = 0
                 let categoryTotalDollars_2 = {};
                 let mopTotalDollars_2 = {};
-                
-                querySnapshot.docs.forEach(doc => {     
+
+                querySnapshot.docs.forEach(doc => {
                     const data = doc.data();
-                    const amount_ = data.Amount;   
+                    const amount_ = data.Amount;
                     const category_ = data.Category;
                     const mop_ = data.MoP;
-                    
+
                     if (!categoryTotalDollars_2[category_]) {
                         categoryTotalDollars_2[category_] = 0;
                     }
@@ -316,24 +349,24 @@ auth.onAuthStateChanged(user => {
                     categoryTotalDollars_2[category_] += amount_;
 
                     if (!mopTotalDollars_2[mop_]) {
-                        mopTotalDollars_2[mop_]= 0;
+                        mopTotalDollars_2[mop_] = 0;
                     }
 
                     mopTotalDollars_2[mop_] += amount_;
 
                     totalAmount_2 += amount_;
                     console.log(categoryTotalDollars_2);
-                    
-                    
+
+
                 });
                 console.log(categoryTotalDollars_2)
-                
+
                 let categoryTotalPersent_2 = categoryTotalDollars_2;
                 let MoPTotalPersent_2 = mopTotalDollars_2;
-                    for (const category in categoryTotalPersent_2) {
-                        const percentage = (categoryTotalPersent_2[category] / totalAmount_2) * 100;
-                        categoryTotalPersent_2[category] = percentage.toFixed(2);
-                    }
+                for (const category in categoryTotalPersent_2) {
+                    const percentage = (categoryTotalPersent_2[category] / totalAmount_2) * 100;
+                    categoryTotalPersent_2[category] = percentage.toFixed(2);
+                }
 
                 for (const MoP in MoPTotalPersent_2) {
                     const MoPs = (MoPTotalPersent_2[MoP] / totalAmount_2) * 100;
@@ -342,10 +375,10 @@ auth.onAuthStateChanged(user => {
                 let highest = 0;
                 let highestCat = "";
                 for (let i in categoryTotalPersent_2) {
-                   if (categoryTotalPersent_2[i] > highest) {
-                    highest = categoryTotalPersent_2[i];
-                    highestCat = i
-                   }
+                    if (categoryTotalPersent_2[i] > highest) {
+                        highest = categoryTotalPersent_2[i];
+                        highestCat = i
+                    }
                 }
                 document.getElementById('MostusedCatLabel').textContent = highestCat;
                 console.log(`testing :${highestCat}`)
@@ -353,44 +386,44 @@ auth.onAuthStateChanged(user => {
                 let highest2 = 0;
                 let highestMoP = "";
                 for (let i in MoPTotalPersent_2) {
-                   if (MoPTotalPersent_2[i] > highest2) {
-                    highest2 = MoPTotalPersent_2[i];
-                    highestMoP = i;
-                   }
-                   
+                    if (MoPTotalPersent_2[i] > highest2) {
+                        highest2 = MoPTotalPersent_2[i];
+                        highestMoP = i;
+                    }
+
                 }
                 document.getElementById('MostusedMoPLabel').textContent = highestMoP;
                 console.log(`testing :${highestMoP}`)
 
                 document.getElementById('totalAmountSpentLabel').textContent = `₹${totalAmount_2}`;
 
-                
 
-                piechartCreate("categoriesListPersentageChartIndex",categoryTotalPersent_2)
-                piechartCreate("MoPListPersentageChartIndex",MoPTotalPersent_2)
-                
 
-                
-                });
+                piechartCreate("categoriesListPersentageChartIndex", categoryTotalPersent_2)
+                piechartCreate("MoPListPersentageChartIndex", MoPTotalPersent_2)
 
-            }
 
-         else {
-        
-            unsubscribe6 && unsubscribe();
-    
-        }
-    });
+
+            });
+
+    }
+
+    else {
+
+        unsubscribe6 && unsubscribe();
+
+    }
+});
 
 // Total Money Spent and charts
 auth.onAuthStateChanged(user => {
 
     if (user) {
 
-        
+
         thingsRef4 = db.collection('spendings')
-        
-        
+
+
         MoneySpent.forEach(radio => {
             radio.addEventListener('change', () => {
                 let TimestampVAR;
@@ -398,135 +431,135 @@ auth.onAuthStateChanged(user => {
                     const now = new Date();
                     const pastLife = new Date(now);
                     pastLife.setDate(pastLife.getDate() - 100000);
-                    
+
                     const nowTimestamp = firebase.firestore.Timestamp.fromDate(now);
                     const LifeTimeTimestamp = firebase.firestore.Timestamp.fromDate(pastLife);
                     console.log("Success: LifeTime")
                     console.log(`Checking:${LifeTimeTimestamp}`)
                     TimestampVAR = LifeTimeTimestamp;
                     stateOfTime = "";
-                    
+
                 }
-        
+
                 else if (radio.value == "PastYear") {
                     const now = new Date();
                     const past365Days = new Date(now);
                     past365Days.setDate(past365Days.getDate() - 365);
-                    
+
                     const nowTimestamp = firebase.firestore.Timestamp.fromDate(now);
                     const past365DaysTimestamp = firebase.firestore.Timestamp.fromDate(past365Days);
                     console.log("Success: 365days")
                     console.log(`Checking:${past365DaysTimestamp}`)
                     TimestampVAR = past365DaysTimestamp;
                     stateOfTime = "in the last 365 days";
-                    
+
                 }
-        
+
                 else if (radio.value == "Past6Month") {
                     const now = new Date();
                     const past6Months = new Date(now);
                     past6Months.setDate(past6Months.getDate() - 182);
-        
+
                     const nowTimestamp = firebase.firestore.Timestamp.fromDate(now);
                     const past6MonthsTimestamp = firebase.firestore.Timestamp.fromDate(past6Months);
                     console.log("Success: 182days")
                     console.log(`Checking:${past6MonthsTimestamp}`)
                     TimestampVAR = past6MonthsTimestamp;
                     stateOfTime = "in the last 6 months";
-                    
+
                 }
-        
+
                 else if (radio.value == "PastMonth") {
                     const now = new Date();
                     const pastMonth = new Date(now);
                     pastMonth.setDate(pastMonth.getDate() - 30);
-        
+
                     const nowTimestamp = firebase.firestore.Timestamp.fromDate(now);
                     const pastMonthTimestamp = firebase.firestore.Timestamp.fromDate(pastMonth);
                     console.log("Success: 30days")
                     console.log(pastMonthTimestamp)
                     TimestampVAR = pastMonthTimestamp;
                     stateOfTime = "in the last 30 days";
-                    
+
                 }
 
 
                 unsubscribe4 = thingsRef4
-                .where('uid', '==', user.uid)
-                
-                .where('Date', '>=', TimestampVAR)
-                
-                .onSnapshot(querySnapshot => {
-                let totalAmount = 0
-                let categoryTotalDollars = {};
-                let mopTotalDollars = {};
+                    .where('uid', '==', user.uid)
 
-                querySnapshot.docs.forEach(doc => {     
-                    const data = doc.data();
-                    const amount_ = data.Amount;   
-                    const category_ = data.Category;
-                    const mop_ = data.MoP;
-                    
-                    if (!categoryTotalDollars[category_]) {
-                        categoryTotalDollars[category_] = 0;
-                    }
+                    .where('Date', '>=', TimestampVAR)
 
-                    categoryTotalDollars[category_] += amount_;
+                    .onSnapshot(querySnapshot => {
+                        let totalAmount = 0
+                        let categoryTotalDollars = {};
+                        let mopTotalDollars = {};
 
-                    if (!mopTotalDollars[mop_]) {
-                        mopTotalDollars[mop_]= 0;
-                    }
+                        querySnapshot.docs.forEach(doc => {
+                            const data = doc.data();
+                            const amount_ = data.Amount;
+                            const category_ = data.Category;
+                            const mop_ = data.MoP;
 
-                    mopTotalDollars[mop_] += amount_;
+                            if (!categoryTotalDollars[category_]) {
+                                categoryTotalDollars[category_] = 0;
+                            }
 
-                    totalAmount += amount_;
-                    console.log(categoryTotalDollars);
-                    
-                    
-                });
-                console.log(categoryTotalDollars)
-                AmountLiAppend(categoryTotalDollars,categoriesListDollars, "$", 'first')
-                AmountLiAppend(mopTotalDollars, MoPListDollars, "$", 'first');
-                drawBarGraph(categoryTotalDollars, 'categoriesListDollarBar')
-                drawBarGraph(mopTotalDollars, 'MoPListDollarBar')
-                let categoryTotalPersent = categoryTotalDollars;
-                let MoPTotalPersent = mopTotalDollars;
-                    for (const category in categoryTotalPersent) {
-                        const percentage = (categoryTotalPersent[category] / totalAmount) * 100;
-                        categoryTotalPersent[category] = percentage.toFixed(2);
-                    }
+                            categoryTotalDollars[category_] += amount_;
 
-                for (const MoP in MoPTotalPersent) {
-                    const MoPs = (MoPTotalPersent[MoP] / totalAmount) * 100;
-                    MoPTotalPersent[MoP] = MoPs.toFixed(2);
-                }
-                    
-                console.log(categoryTotalPersent)
-                console.log(categoryTotalDollars)
-                
-                SumOfLabel.textContent = `Total Money Spent ${stateOfTime} is ₹${totalAmount}!`;
-                console.log("sucessfully summed money");
+                            if (!mopTotalDollars[mop_]) {
+                                mopTotalDollars[mop_] = 0;
+                            }
 
-                
-                AmountLiAppend(categoryTotalPersent,categoriesListPersentage, "%", "last")
-                piechartCreate("categoriesListPersentageChart",categoryTotalPersent)
-                
-                AmountLiAppend(MoPTotalPersent, MoPListPersentage, "%", "last");
-                piechartCreate("MoPListPersentageChart",MoPTotalPersent)
-                  
-                
-                });
-            
+                            mopTotalDollars[mop_] += amount_;
+
+                            totalAmount += amount_;
+                            console.log(categoryTotalDollars);
+
+
+                        });
+                        console.log(categoryTotalDollars)
+                        AmountLiAppend(categoryTotalDollars, categoriesListDollars, "$", 'first')
+                        AmountLiAppend(mopTotalDollars, MoPListDollars, "$", 'first');
+                        drawBarGraph(categoryTotalDollars, 'categoriesListDollarBar')
+                        drawBarGraph(mopTotalDollars, 'MoPListDollarBar')
+                        let categoryTotalPersent = categoryTotalDollars;
+                        let MoPTotalPersent = mopTotalDollars;
+                        for (const category in categoryTotalPersent) {
+                            const percentage = (categoryTotalPersent[category] / totalAmount) * 100;
+                            categoryTotalPersent[category] = percentage.toFixed(2);
+                        }
+
+                        for (const MoP in MoPTotalPersent) {
+                            const MoPs = (MoPTotalPersent[MoP] / totalAmount) * 100;
+                            MoPTotalPersent[MoP] = MoPs.toFixed(2);
+                        }
+
+                        console.log(categoryTotalPersent)
+                        console.log(categoryTotalDollars)
+
+                        SumOfLabel.textContent = `Total Money Spent ${stateOfTime} is ₹${totalAmount}!`;
+                        console.log("sucessfully summed money");
+
+
+                        AmountLiAppend(categoryTotalPersent, categoriesListPersentage, "%", "last")
+                        piechartCreate("categoriesListPersentageChart", categoryTotalPersent)
+
+                        AmountLiAppend(MoPTotalPersent, MoPListPersentage, "%", "last");
+                        piechartCreate("MoPListPersentageChart", MoPTotalPersent)
+
+
+                    });
+
             });
-    
 
-        
-    });
-    
+
+
+        });
+
 
 
     } else {
-        
+
         unsubscribe4 && unsubscribe();
     }
 });
@@ -597,43 +630,41 @@ let unsubscribe8;
 auth.onAuthStateChanged(user => {
 
     if (user) {
-        
+
         thingsRef8 = db.collection('spendings')
 
         unsubscribe8 = thingsRef8
-        .where('uid', '==', user.uid)
-        
-        .onSnapshot(querySnapshot => {
-        let dictOfData = {
-            "January":0,
-            "February":0,
-            "March":0,
-            "April":0,
-            "May":0,
-            "June":0,
-            "July":0,
-            "August":0,
-            "September":0,
-            "October":0,
-            "November":0,
-            "December":0,
-        };
-        let highestSpent1 = 0;
-        let usersMoP1 = querySnapshot.docs.map(doc => {    
-            let date = convertTimestampToDate(doc.data().Date)
-            console.log(date)
-            date = getMonthNameFromDateString(date)
-            console.log(date)
-            dictOfData[date] += doc.data().Amount;
-        }); 
-        console.log()
-        drawLineGraph(dictOfData, "monthlySpendingGraph")
-    });
-    
+            .where('uid', '==', user.uid)
 
+            .onSnapshot(querySnapshot => {
+                let dictOfData = {
+                    "January": 0,
+                    "February": 0,
+                    "March": 0,
+                    "April": 0,
+                    "May": 0,
+                    "June": 0,
+                    "July": 0,
+                    "August": 0,
+                    "September": 0,
+                    "October": 0,
+                    "November": 0,
+                    "December": 0,
+                };
+                let highestSpent1 = 0;
+                let usersMoP1 = querySnapshot.docs.map(doc => {
+                    let date = convertTimestampToDate(doc.data().Date)
+                    console.log(date)
+                    date = getMonthNameFromDateString(date)
+                    console.log(date)
+                    dictOfData[date] += doc.data().Amount;
+                });
+                console.log()
+                drawLineGraph(dictOfData, "monthlySpendingGraph")
+            });
 
     } else {
-        
+
         unsubscribe8 && unsubscribe();
     }
 });
@@ -646,26 +677,26 @@ let unsubscribe7;
 auth.onAuthStateChanged(user => {
 
     if (user) {
-        
+
         thingsRef3 = db.collection('spendings')
 
         unsubscribe3 = thingsRef3
-        .where('uid', '==', user.uid)
-        
-        .onSnapshot(querySnapshot => {
-        let highestSpent = 0;
-        let usersMoP = querySnapshot.docs.map(doc => {    
-            if (doc.data().Amount > highestSpent) {
-                highestSpent = doc.data().Amount
-            }    
-        }); 
-        document.getElementById('biggestPurchaseLabel').textContent = `₹${highestSpent}`
-    });
-    
+            .where('uid', '==', user.uid)
+
+            .onSnapshot(querySnapshot => {
+                let highestSpent = 0;
+                let usersMoP = querySnapshot.docs.map(doc => {
+                    if (doc.data().Amount > highestSpent) {
+                        highestSpent = doc.data().Amount
+                    }
+                });
+                document.getElementById('biggestPurchaseLabel').textContent = `₹${highestSpent}`
+            });
+
 
 
     } else {
-        
+
         unsubscribe7 && unsubscribe();
     }
 });
@@ -675,7 +706,7 @@ auth.onAuthStateChanged(user => {
 
 function addCategories(categories) {
     const dropdown = document.getElementById('Category');
-    
+
     const existingOptions = new Set();
     for (let i = 0; i < dropdown.options.length; i++) {
         existingOptions.add(dropdown.options[i].value);
@@ -694,13 +725,13 @@ function addCategories(categories) {
 
 function addMoP(MoPs) {
     const dropdown = document.getElementById('MoPDropdown');
-    
+
     const existingOptions = new Set();
     for (let i = 0; i < dropdown.options.length; i++) {
         existingOptions.add(dropdown.options[i].value);
     };
 
-    
+
     MoPs.forEach(MoP => {
         if (!existingOptions.has(MoP)) {
             const option = document.createElement('option');
@@ -713,17 +744,17 @@ function addMoP(MoPs) {
 
 
 function AmountLiAppend(data, table, type, position) {
-    
+
     table.innerHTML = ``;
-    
+
 
     for (const category in data) {
         if (data.hasOwnProperty(category)) {
-            
+
             const row = table.insertRow();
             const cell = row.insertCell(0);
-            
-            
+
+
             if (position === "first") {
                 cell.textContent = `${category}: ${type} ${data[category]}`;
             } else if (position === "last") {
@@ -737,7 +768,7 @@ function AmountLiAppend(data, table, type, position) {
 
 function convertTimestampToDate(timestamp) {
     if (!timestamp) {
-      return 'Invalid Date';
+        return 'Invalid Date';
     }
     const { seconds, nanoseconds } = timestamp;
     const milliseconds = seconds * 1000 + nanoseconds / 1000000;
@@ -746,92 +777,92 @@ function convertTimestampToDate(timestamp) {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
-  }
+}
 
 
-function piechartCreate (id,datab) {
+function piechartCreate(id, datab) {
     const labels = Object.keys(datab);
     const data = Object.values(datab);
-    console.log(labels,data)
+    console.log(labels, data)
     const ctx = document.getElementById(id).getContext('2d');
 
     new Chart(ctx, {
-    type: 'pie',
-    data: {
-        labels: labels,
-        datasets: [{
-            label: 'Percentage',
-            data: data,
-            backgroundColor : [
-                'rgba(255, 99, 132, 0.5)',
-                'rgba(54, 162, 235, 0.5)',
-                'rgba(255, 206, 86, 0.5)',
-                'rgba(75, 192, 192, 0.5)',
-                'rgba(153, 102, 255, 0.5)',
-                'rgba(255, 159, 64, 0.5)',
-                'rgba(255, 99, 132, 0.7)',
-                'rgba(54, 162, 235, 0.7)',
-                'rgba(255, 206, 86, 0.7)',
-                'rgba(75, 192, 192, 0.7)',
-                'rgba(153, 102, 255, 0.7)',
-                'rgba(255, 159, 64, 0.7)',
-                'rgba(255, 99, 132, 0.9)',
-                'rgba(54, 162, 235, 0.9)',
-                'rgba(255, 206, 86, 0.9)',
-                'rgba(75, 192, 192, 0.9)',
-                'rgba(153, 102, 255, 0.9)',
-                'rgba(255, 159, 64, 0.9)',
-                'rgba(0, 128, 0, 0.5)',
-                'rgba(255, 0, 0, 0.5)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)',
-                'rgba(0, 128, 0, 1)',
-                'rgba(255, 0, 0, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: false,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                position: 'top',
-            },
-            tooltip: {
-                callbacks: {
-                    
-                    formatter: function(tooltip) {
-                        let tooltipText = '';
-                        if (tooltip.label) {
-                            tooltipText += `${labels[tooltip.dataIndex]}: ${data[tooltip.dataIndex]}%`;
-                        }
-                        return tooltipText;
-                    }
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Percentage',
+                data: data,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)',
+                    'rgba(255, 99, 132, 0.7)',
+                    'rgba(54, 162, 235, 0.7)',
+                    'rgba(255, 206, 86, 0.7)',
+                    'rgba(75, 192, 192, 0.7)',
+                    'rgba(153, 102, 255, 0.7)',
+                    'rgba(255, 159, 64, 0.7)',
+                    'rgba(255, 99, 132, 0.9)',
+                    'rgba(54, 162, 235, 0.9)',
+                    'rgba(255, 206, 86, 0.9)',
+                    'rgba(75, 192, 192, 0.9)',
+                    'rgba(153, 102, 255, 0.9)',
+                    'rgba(255, 159, 64, 0.9)',
+                    'rgba(0, 128, 0, 0.5)',
+                    'rgba(255, 0, 0, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(0, 128, 0, 1)',
+                    'rgba(255, 0, 0, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: false,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
 
+                        formatter: function (tooltip) {
+                            let tooltipText = '';
+                            if (tooltip.label) {
+                                tooltipText += `${labels[tooltip.dataIndex]}: ${data[tooltip.dataIndex]}%`;
+                            }
+                            return tooltipText;
+                        }
+
+                    }
                 }
             }
         }
-    }
-})
+    })
 }
 
 function timestampToYearMonth(timestamp) {
@@ -844,112 +875,112 @@ function timestampToYearMonth(timestamp) {
 function drawBarGraph(data, canvasId) {
     const ctx = document.getElementById(canvasId).getContext('2d');
 
-    
+
     const labels = Object.keys(data);
     const values = Object.values(data);
 
     new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: labels,
-        datasets: [{
-          label: 'Data',
-          data: values ,
-          backgroundColor: '#6b8a7a',
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: 'Values'
-            }
-          },
-          x: {
-            title: {
-              display: true,
-              text: 'Labels'
-            }
-          }
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Data',
+                data: values,
+                backgroundColor: '#6b8a7a',
+                borderWidth: 1
+            }]
         },
-        plugins: {
-          legend: {
-            display: false // Hide legend if not needed
-          },
-          tooltip: {
-            callbacks: {
-              label: function(tooltipItem) {
-                return '$' + tooltipItem.raw.toFixed(2); // Display raw data value with 2 decimal places
-              }
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Values'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Labels'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            return '$' + tooltipItem.raw.toFixed(2);
+                        }
+                    }
+                }
             }
-          }
         }
-      }
     });
-  }
+}
 
 
-  function getMonthNameFromDateString(dateString) {
+function getMonthNameFromDateString(dateString) {
     const parts = dateString.split('/');
     const monthIndex = parseInt(parts[1], 10) - 1;
     const date = new Date();
     date.setMonth(monthIndex);
     return date.toLocaleString('default', { month: 'long' });
-  }
-  
-  function drawLineGraph(dataObject, canvasId) {
-    const labels = Object.keys(dataObject); // Extract keys as labels (e.g., month names)
-    const dataValues = Object.values(dataObject); // Extract values as data points
-    
+}
+
+function drawLineGraph(dataObject, canvasId) {
+    const labels = Object.keys(dataObject);
+    const dataValues = Object.values(dataObject);
+
     const ctx = document.getElementById(canvasId).getContext('2d');
-    
+
     new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: labels,
-        datasets: [{
-          label: 'Monthly Spending',
-          data: dataValues,
-          fill: false,
-          borderColor: '#6b8a7a', // Custom color for the line
-          borderWidth: 2
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: 'Amount ($)'
-            }
-          },
-          x: {
-            title: {
-              display: true,
-              text: 'Months'
-            }
-          }
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Monthly Spending',
+                data: dataValues,
+                fill: false,
+                borderColor: '#6b8a7a',
+                borderWidth: 2
+            }]
         },
-        plugins: {
-          legend: {
-            display: true,
-            position: 'top', // Adjust position as needed
-          },
-          tooltip: {
-            callbacks: {
-              label: function(tooltipItem) {
-                return '$' + tooltipItem.raw.toFixed(2); // Format tooltip to show $ sign and 2 decimals
-              }
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Amount ($)'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Months'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            return '$' + tooltipItem.raw.toFixed(2);
+                        }
+                    }
+                }
             }
-          }
         }
-      }
     });
-  }
+}
 
 function saveDateToFirestore(id) {
     const customDateInput = document.getElementById(id).value;
@@ -957,3 +988,5 @@ function saveDateToFirestore(id) {
     const timestamp = firebase.firestore.Timestamp.fromDate(selectedDate);
     return timestamp
 }
+
+
